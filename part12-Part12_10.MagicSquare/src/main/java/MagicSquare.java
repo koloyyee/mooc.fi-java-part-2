@@ -17,15 +17,68 @@ public class MagicSquare {
 
     // implement these three methods
     public ArrayList<Integer> sumsOfRows() {
-        return new ArrayList<>();
+        ArrayList<Integer> sums = new ArrayList<>();
+        for (int row = 0; row < square.length; row++) {
+            int sum = 0;
+            for (int col = 0; col < square[row].length; col++) {
+                sum += square[row][col];
+            }
+            sums.add(sum);
+        }
+        return sums;
     }
 
     public ArrayList<Integer> sumsOfColumns() {
-        return new ArrayList<>();
+
+        ArrayList<Integer> sums = new ArrayList<>();
+        /*
+         * 8 0 8
+         * 0 1 1
+         * 0 1 8
+         *
+         * s[0][0]:8 + s[1][0]:0 + s[2][0]:0 = 8
+         * s[0][1]:0 + s[1][1]:1 + s[2][1]:1 = 2
+         * s[0][2]:8 + s[1][2]:1 + s[2][2]:8 = 17
+         */
+
+        for (int row = 0; row < square.length; row++) {
+            int sum = 0;
+            for (int col = 0; col < square[row].length; col++) {
+                // System.out.printf("square[%s][%s]:%d%n", col, row, square[col][row]);
+                sum += square[col][row];
+            }
+            sums.add(sum);
+        }
+        return sums;
     }
 
     public ArrayList<Integer> sumsOfDiagonals() {
-        return new ArrayList<>();
+        ArrayList<Integer> sums = new ArrayList<>();
+        /*
+         * 8 0 8
+         * 0 1 1
+         * 0 1 8
+         *
+         * s[0][0]:8 + s[1][1]:1 + s[2][2]:8 = 17
+         * s[2][0]:0 + s[1][1]:1 + s[0][2]:8 = 9
+         */
+        int startTop = 0;
+        for (int row = 0; row < square.length; row++) {
+            // System.out.printf("square[%s][%s]:%d%n", row, row, square[row][row]);
+            startTop += square[row][row];
+        }
+        // System.out.println("startTop " + startTop);
+
+        sums.add(startTop);
+
+        int startBottom = 0;
+        for (int row = square.length - 1; row >= 0; row--) {
+            // System.out.printf("square[%s][%s]:%d%n", row, (square.length - 1 - row),
+            // square[row][square.length - 1 - row]);
+            startBottom += square[row][square.length - 1 - row];
+        }
+        sums.add(startBottom);
+        return sums;
     }
 
     // ready-made helper methods -- don't touch these
@@ -78,7 +131,7 @@ public class MagicSquare {
 
     public int readValue(int x, int y) {
         if (x < 0 || y < 0 || x >= getWidth() || y >= getHeight()) {
-            return - 1;
+            return -1;
         }
 
         return this.square[y][x];
