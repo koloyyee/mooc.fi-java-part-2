@@ -70,7 +70,7 @@
                 <configuration>
                     <release>${maven.compiler.release}</release>
                     <launcher>launcher</launcher>
-                    <mainClass>textstatistics.TextStatisticsApplication</mainClass>
+                    <mainClass>ticTacToe.TicTacToeApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
