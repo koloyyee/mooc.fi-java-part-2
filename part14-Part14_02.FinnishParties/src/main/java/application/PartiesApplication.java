@@ -76,13 +76,6 @@ public final class PartiesApplication extends Application {
         return list;
     }
 
-    // public List<String> getPartiesNames() {
-    // return reader.lines()
-    // .map(line -> line.split("\t")[0])
-    // .skip(1)
-    // .collect(Collectors.toList());
-    // }
-
     public Map<String, Map<Integer, Double>> getPartiesYearRates() {
 
         ArrayList<Integer> years = new ArrayList<>();

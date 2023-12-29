@@ -32,19 +32,6 @@ public class DataCleaner {
     }
 
   }
-  // public void dataCleaning() {
-  // try (BufferedReader reader =
-  // Files.newBufferedReader(Paths.get("partiesdata.tsv"))) {
-  // // ArrayList<Integer> years = getYears(reader);
-  // // Map<String, Map<Integer, Double>> partiesYearRates =
-  // // getPartiesYearRates(reader);
-
-  // List<String> names = getPartiesNames(reader);
-  // System.out.println(names);
-  // } catch (Exception e) {
-  // System.out.println(e);
-  // }
-  // }
 
   public ArrayList<Integer> getYears() {
     String header = reader.lines().findFirst().orElse("");
