@@ -1,7 +1,6 @@
 package collage;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,28 +34,67 @@ public class CollageApplication extends Application {
             while (xCoordinate < width) {
 
                 Color color = imageReader.getColor(xCoordinate, yCoordinate);
-                double red = color.getRed();
-                double green = color.getGreen();
-                double blue = color.getBlue();
+                double red = 1 - color.getRed();
+                double green = 1 - color.getGreen();
+                double blue = 1 - color.getBlue();
                 double opacity = color.getOpacity();
 
                 Color newColor = new Color(red, green, blue, opacity);
 
-                imageWriter.setColor(xCoordinate, yCoordinate, newColor);
+                imageWriter.setColor(xCoordinate / 2, yCoordinate / 2, newColor);
 
-                xCoordinate++;
+                imageWriter.setColor((width / 2) + xCoordinate / 2, yCoordinate / 2, newColor);
+
+                imageWriter.setColor(xCoordinate / 2, (height / 2) + yCoordinate / 2, newColor);
+
+                imageWriter.setColor((width / 2) + xCoordinate / 2, (height / 2) + yCoordinate / 2, newColor);
+
+                xCoordinate += 2;
             }
 
-            yCoordinate++;
+            yCoordinate += 2;
         }
 
+        Pane pane = new Pane();
         ImageView image = new ImageView(targetImage);
 
-        Pane pane = new Pane();
+        // GridPane display = new GridPane();
+
+        // for (int i = 0; i < 2; i++) {
+
+        // for (int j = 0; j < 2; j++) {
+        // ImageView newImage = goNegative(sourceImage, width, height);
+        // newImage.setFitHeight(height / 2);
+        // newImage.setFitWidth(width / 2);
+        // display.add(newImage, i, j);
+        // }
+
+        // }
+
         pane.getChildren().add(image);
 
         stage.setScene(new Scene(pane));
         stage.show();
+    }
+
+    public ImageView goNegative(Image ogImage, int sourceWidth, int sourceHeight) {
+        WritableImage tgImage = new WritableImage(sourceWidth, sourceHeight);
+
+        for (int y = 0; y < sourceHeight; y++) {
+            for (int x = 0; x < sourceWidth; x++) {
+                Color pixelColor = ogImage.getPixelReader().getColor(x, y);
+                double ngRed = 1.0 - pixelColor.getRed();
+                double ngGreen = 1.0 - pixelColor.getGreen();
+                double ngBlue = 1.0 - pixelColor.getBlue();
+                double opacity = pixelColor.getOpacity();
+
+                Color newColor = new Color(ngRed, ngGreen, ngBlue, opacity);
+                tgImage
+                        .getPixelWriter()
+                        .setColor(x, y, newColor);
+            }
+        }
+        return new ImageView(tgImage);
     }
 
     public static void main(String[] args) {
